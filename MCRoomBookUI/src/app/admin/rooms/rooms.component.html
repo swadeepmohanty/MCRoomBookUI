@@ -16,14 +16,14 @@
             <td>{{room.id}}</td>
             <td>{{room.name}}</td>
             <td>
-              <button type="button" class="btn btn-primary">view</button>
+              <button type="button" class="btn btn-primary" (click)="setRoom(room.id)">view</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="col-6">
-      ROOM DETAIL WILL GO HERE
+      <app-room-detail *ngIf="selectedRoom" [room]="selectedRoom"></app-room-detail>
     </div>
   </div>
 
