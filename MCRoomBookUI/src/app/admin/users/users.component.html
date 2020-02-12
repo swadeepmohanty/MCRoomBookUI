@@ -1,5 +1,5 @@
 <h1>Users Admin</h1>
-<a class="btn btn-warning mb-3">add</a>
+<a class="btn btn-warning mb-3" (click)="addUser()">add</a>
 <div class="row">
   <div class="col-6">
     <table class="table">
@@ -20,7 +20,8 @@
     </table>
   </div>
   <div class="col-6">
-    <app-user-detail *ngIf="selectedUser" [user]= "selectedUser"></app-user-detail>
+    <app-user-detail *ngIf="action === 'view'" [user]= "selectedUser"></app-user-detail>
+    <app-user-edit *ngIf="action === 'edit' || action === 'add' " [user]= "selectedUser"></app-user-edit>
   </div>
 </div>
 

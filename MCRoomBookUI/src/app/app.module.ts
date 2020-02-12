@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -10,6 +11,7 @@ import {Routes, RouterModule} from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RoomDetailComponent } from './admin/rooms/room-detail/room-detail.component';
 import { UserDetailComponent } from './admin/users/user-detail/user-detail.component';
+import { UserEditComponent } from './admin/users/user-edit/user-edit.component';
 
 const routes: Routes = [
   {path : 'admin/users', component : UsersComponent},
@@ -29,10 +31,12 @@ const routes: Routes = [
     UsersComponent,
     PageNotFoundComponent,
     RoomDetailComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],
