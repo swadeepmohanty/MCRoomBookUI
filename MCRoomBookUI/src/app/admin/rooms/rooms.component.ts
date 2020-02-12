@@ -12,6 +12,7 @@ export class RoomsComponent implements OnInit {
 
   rooms: Array<Room>;
   selectedRoom: Room;
+  action: string;
 
   constructor(private dataService: DataService,
               private route: ActivatedRoute,
@@ -28,12 +29,21 @@ export class RoomsComponent implements OnInit {
          const id = params.id;
          if (id) {
           this.selectedRoom = this.rooms.find(room => room.id === +id);
+          this.action = params.action;
+         }
+         if (params.action === 'add') {
+           this.selectedRoom = new Room();
+           this.action = 'edit';
          }
        }
      );
   }
 
   setRoom(id: number ) {
-    this.router.navigate(['admin', 'rooms'], {queryParams : {id} });
+    this.router.navigate(['admin', 'rooms'], {queryParams : {id, action: 'view'} });
+  }
+
+  addRoom() {
+    this.router.navigate(['admin', 'rooms'], {queryParams : {action: 'add'} });
   }
 }

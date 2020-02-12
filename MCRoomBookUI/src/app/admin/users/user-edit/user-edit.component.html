@@ -2,23 +2,27 @@
 
 <div class="bg-warning p-5" *ngIf ="message">{{message}}</div>
 
-<form>
+<form #userform="ngForm">
 
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" placeholder="user name" [(ngModel)]="formUser.name" name="name">
-    <div class="alert alert-danger">error message placeholder</div>
+    <input type="text" class="form-control" id="name" placeholder="UserName" [(ngModel)]="formUser.name" name="name" required #nameField="ngModel">
+    <div *ngIf="nameField.invalid && nameField.touched" class="alert alert-danger">Name is required</div>
 
   </div>
 
-  <div class="form-group" *ngIf = "user.id == null"> <!-- only show this field on adding a user -->
+  <div class="form-group" *ngIf = "user.id == null">
     <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" placeholder="password" name="password">
+    <input type="password" class="form-control" id="password" placeholder="password" name="password" [(ngModel)]="password">
+    <div class="alert alert-danger">error message placeholder</div>
+
+    <label for="repeatPassword">Repeat Password</label>
+    <input type="password" class="form-control" id="repeatPassword" placeholder="password" name="repeatPassword" [(ngModel)]="repeatPassword">
     <div class="alert alert-danger">error message placeholder</div>
 
   </div>
 
-  <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>
+  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="userform.invalid">Save</button>
 </form>
 
 
