@@ -34,6 +34,14 @@
             ]
           },
           "configurations": {
+            "local":{
+              "fileReplacements": [
+                {
+                  "replace": "src/app/data.service.ts",
+                  "with": "src/app/data.service.local.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -73,6 +81,9 @@
           "configurations": {
             "production": {
               "browserTarget": "MCRoomBookUI:build:production"
+            },
+            "local": {
+              "browserTarget": "MCRoomBookUI:build:local"
             }
           }
         },
