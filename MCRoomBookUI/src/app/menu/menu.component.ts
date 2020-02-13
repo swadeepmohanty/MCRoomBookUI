@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -14,11 +14,11 @@ export class MenuComponent implements OnInit {
   }
 
   navigateToRoomsAdmin() {
-    this.router.navigate(['admin', 'rooms']);
+    this.router.navigate(['admin','rooms']);
   }
 
   navigateToUsersAdmin() {
-    this.router.navigate(['admin', 'users']);
+    this.router.navigate((['admin','users']));
   }
 
   navigateToHome() {

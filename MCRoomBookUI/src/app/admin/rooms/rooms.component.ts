@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/data.service';
-import { Room } from 'src/app/model/Room';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {DataService} from '../../data.service';
+import {Room} from '../../model/Room';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormResetService} from '../../form-reset.service';
 
 @Component({
   selector: 'app-rooms',
@@ -16,34 +17,39 @@ export class RoomsComponent implements OnInit {
 
   constructor(private dataService: DataService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private formResetService: FormResetService) { }
 
   ngOnInit() {
-     this.dataService.getRooms().subscribe(
-       (next) => {
-         this.rooms = next;
-       }
-     );
-     this.route.queryParams.subscribe(
-       (params) => {
-         const id = params.id;
-         if (id) {
-          this.selectedRoom = this.rooms.find(room => room.id === +id);
-          this.action = params.action;
-         }
-         if (params.action === 'add') {
-           this.selectedRoom = new Room();
-           this.action = 'edit';
-         }
-       }
-     );
+    this.dataService.getRooms().subscribe(
+      (next) => {
+        this.rooms = next;
+      }
+    );
+
+    this.route.queryParams.subscribe(
+      (params) => {
+        this.action = null;
+        const id = params['id'];
+        if (id) {
+          this.selectedRoom = this.rooms.find( room => room.id === +id);
+          this.action = params['action'];
+        }
+        if (params['action'] === 'add') {
+          this.selectedRoom = new Room();
+          this.action = 'edit';
+          this.formResetService.resetRoomFormEvent.emit(this.selectedRoom);
+        }
+      }
+    );
   }
 
-  setRoom(id: number ) {
-    this.router.navigate(['admin', 'rooms'], {queryParams : {id, action: 'view'} });
+  setRoom(id: number) {
+    this.router.navigate(['admin','rooms'], {queryParams : {id, action : 'view'} });
   }
 
   addRoom() {
-    this.router.navigate(['admin', 'rooms'], {queryParams : {action: 'add'} });
+    this.router.navigate(['admin','rooms'], {queryParams : {action : 'add'} });
   }
+
 }

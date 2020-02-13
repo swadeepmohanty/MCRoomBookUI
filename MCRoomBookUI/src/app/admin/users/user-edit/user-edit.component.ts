@@ -1,14 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { User } from 'src/app/model/User';
-import { DataService } from 'src/app/data.service';
-import { Router } from '@angular/router';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {User} from '../../../model/User';
+import {DataService} from '../../../data.service';
+import {Router} from '@angular/router';
+import {FormResetService} from '../../../form-reset.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css']
 })
-export class UserEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnDestroy {
 
   @Input()
   user: User;
@@ -18,14 +20,36 @@ export class UserEditComponent implements OnInit {
   message: string;
 
   password: string;
+  password2: string;
 
-  repeatPassword: string;
+  nameIsValid = false;
+  passwordsAreValid = false;
+  passwordsMatch = false;
+
+  userResetSubscription: Subscription;
 
   constructor(private dataService: DataService,
-              private router: Router) { }
+              private router: Router,
+              private formResetService: FormResetService) { }
 
   ngOnInit() {
+    this.initializeForm();
+    this.userResetSubscription = this.formResetService.resetUserFormEvent.subscribe(
+      user => {
+        this.user = user;
+        this.initializeForm();
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.userResetSubscription.unsubscribe();
+  }
+
+  initializeForm() {
     this.formUser = Object.assign({}, this.user);
+    this.checkIfNameIsValid();
+    this.checkIfPasswordsAreValid();
   }
 
   onSubmit() {
@@ -43,4 +67,27 @@ export class UserEditComponent implements OnInit {
       );
     }
   }
+
+  checkIfNameIsValid() {
+    if (this.formUser.name) {
+      this.nameIsValid = this.formUser.name.trim().length > 0;
+    } else {
+      this.nameIsValid = false;
+    }
+  }
+
+  checkIfPasswordsAreValid() {
+    if (this.formUser.id != null) {
+      this.passwordsAreValid = true;
+      this.passwordsMatch = true;
+    } else {
+      this.passwordsMatch = this.password === this.password2;
+      if (this.password) {
+        this.passwordsAreValid = this.password.trim().length > 0;
+      } else {
+        this.passwordsAreValid = false;
+      }
+    }
+  }
+
 }
