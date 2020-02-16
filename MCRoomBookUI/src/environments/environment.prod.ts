@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  restUrl: 'https://someserver.com'
+  restUrl: 'https://someServer.com'
 };

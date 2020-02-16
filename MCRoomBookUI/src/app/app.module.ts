@@ -14,13 +14,16 @@ import { UserEditComponent } from './admin/users/user-edit/user-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RoomEditComponent } from './admin/rooms/room-edit/room-edit.component';
 import { EditBookingComponent } from './calendar/edit-booking/edit-booking.component';
+import {HttpClientModule} from '@angular/common/http';
+import {PrefectchRoomsService} from './prefectch-rooms.service';
+import {PrefectchUsersService} from './prefectch-users.service';
 
 const routes: Routes = [
   {path : 'admin/users', component : UsersComponent},
   {path : 'admin/rooms', component: RoomsComponent},
   {path : '', component: CalendarComponent},
-  {path : 'editBooking', component: EditBookingComponent},
-  {path : 'addBooking', component: EditBookingComponent},
+  {path : 'editBooking', component: EditBookingComponent, resolve : {rooms : PrefectchRoomsService, users: PrefectchUsersService}},
+  {path : 'addBooking', component: EditBookingComponent, resolve : {rooms : PrefectchRoomsService, users: PrefectchUsersService}},
   {path : '404', component : PageNotFoundComponent},
   {path : '**', redirectTo : '/404'}
 ];
@@ -43,6 +46,7 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

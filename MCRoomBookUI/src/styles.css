@@ -1,3 +1,7 @@
+a {
+  cursor: pointer;
+}
+
 .row-striped:nth-of-type(odd){
   background-color: #efefef;
   border-left: 4px #000000 solid;
@@ -12,6 +16,3 @@
   padding: 15px 0;
 }
 
-a {
-  cursor: pointer;
-}

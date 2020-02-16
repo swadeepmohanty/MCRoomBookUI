@@ -1,6 +1,8 @@
-<h1>{{booking.id == null ? 'Add' : 'Edit'}} Booking</h1>
+<h1>{{booking?.id == null ? 'Add' : 'Edit'}} Booking</h1>
 
-<form>
+<div class="bg-warning p-5" *ngIf="message">{{message}}</div>
+
+<form *ngIf="dataLoaded">
   <div class="row">
     <div class="form-group col-4">
       <label for="date">Date</label>
