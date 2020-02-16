@@ -12,7 +12,6 @@ public class CORSConfig implements WebMvcConfigurer {
 		registry.addMapping("/api/**")
 			.allowedMethods("GET","POST","PUT","DELETE")
 			.allowedOrigins("http://localhost:4200");
-		//TODO: Need to change the URL for the production URL when we deploy 
 	}
 	
 
