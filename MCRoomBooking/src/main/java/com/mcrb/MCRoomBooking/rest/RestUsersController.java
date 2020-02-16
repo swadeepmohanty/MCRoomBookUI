@@ -30,7 +30,6 @@ public class RestUsersController {
 	
 	@PutMapping()
 	public AngularUser updateUser(@RequestBody AngularUser updatedUser) throws InterruptedException {
-		Thread.sleep(1000);
 //		throw new RuntimeException("something went wrong");
 		User originalUser = userRepository.findById(updatedUser.getId()).get();
 		originalUser.setName(updatedUser.getName());

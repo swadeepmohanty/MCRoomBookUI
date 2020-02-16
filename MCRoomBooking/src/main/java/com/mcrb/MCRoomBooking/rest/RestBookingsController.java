@@ -2,6 +2,7 @@ package com.mcrb.MCRoomBooking.rest;
 
 import com.mcrb.MCRoomBooking.data.BookingRepository;
 import com.mcrb.MCRoomBooking.model.entities.Booking;
+import com.mcrb.MCRoomBooking.util.BookingCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,12 +34,20 @@ public class RestBookingsController {
 	
 	@PostMapping()
 	public Booking newBooking(@RequestBody Booking booking) {
+		boolean flag = BookingCheck.seatCapacityCheck(booking);
+		if(flag==false){
+			throw new RuntimeException("Something went wrong");
+		}
 	    bookingRepository.save(booking);
 	    return booking;
 	}
 
 	@PutMapping()
 	public Booking updateBooking(@RequestBody Booking updatedBooking) {
+		boolean flag = BookingCheck.seatCapacityCheck(updatedBooking);
+		if(flag==false){
+			throw new RuntimeException("Something went wrong");
+		}
 	    bookingRepository.save(updatedBooking);
 	    return updatedBooking;
 	}
