@@ -5,6 +5,7 @@ import com.mcrb.MCRoomBooking.model.entities.Booking;
 import com.mcrb.MCRoomBooking.model.entities.Room;
 import com.mcrb.MCRoomBooking.model.entities.User;
 
+
 import java.sql.Date;
 
 public class BookingCommand {

@@ -32,22 +32,22 @@ public class DataInitialization {
     public void initData() {
         List<Room> rooms = roomRepository.findAll();
         if (rooms.size() == 0) {
-            Room blueRoom = new Room("Blue meeting room","1st Floor");
-            blueRoom.setCapacity(new LayoutCapacity(Layout.BOARD,8));
-            blueRoom.setCapacity(new LayoutCapacity(Layout.THEATER,16));
-            roomRepository.save(blueRoom);
+            Room roomOne = new Room("Abdul Kalam","4th Floor");
+            roomOne.setCapacity(new LayoutCapacity(Layout.BOARD,8));
+            roomOne.setCapacity(new LayoutCapacity(Layout.THEATER,16));
+            roomRepository.save(roomOne);
 
-            Room redRoom = new Room("Red meeting room","2nd Floor");
-            redRoom.setCapacity(new LayoutCapacity(Layout.BOARD,12));
-            redRoom.setCapacity(new LayoutCapacity(Layout.USHAPE,26));
-            roomRepository.save(redRoom);
+            Room roomTwo = new Room("J.C Bose","4th Floor");
+            roomTwo.setCapacity(new LayoutCapacity(Layout.BOARD,12));
+            roomTwo.setCapacity(new LayoutCapacity(Layout.USHAPE,26));
+            roomRepository.save(roomTwo);
 
-            Room confRoom = new Room("Main Conference Room","1st Floor");
+            Room confRoom = new Room("Mary Kom","3rd Floor");
             confRoom.setCapacity(new LayoutCapacity(Layout.THEATER,80));
             confRoom.setCapacity(new LayoutCapacity(Layout.USHAPE,40));
             roomRepository.save(confRoom);
 
-            User user = new User("matt", "secret");
+            User user = new User("John", "secret");
             userRepository.save(user);
 
             Booking booking1 = new Booking();
@@ -56,8 +56,8 @@ public class DataInitialization {
             booking1.setEndTime(java.sql.Time.valueOf("11:30:00"));
             booking1.setLayout(Layout.USHAPE);
             booking1.setParticipants(8);
-            booking1.setTitle("Conference call with CEO");
-            booking1.setRoom(blueRoom);
+            booking1.setTitle("Knowledge Sharing Session");
+            booking1.setRoom(roomOne);
             booking1.setUser(user);
             bookingRepository.save(booking1);
 
@@ -67,8 +67,8 @@ public class DataInitialization {
             booking2.setEndTime(java.sql.Time.valueOf("14:30:00"));
             booking2.setLayout(Layout.BOARD);
             booking2.setParticipants(5);
-            booking2.setTitle("Sales Update");
-            booking2.setRoom(redRoom);
+            booking2.setTitle("Sprint Call");
+            booking2.setRoom(roomTwo);
             booking2.setUser(user);
             bookingRepository.save(booking2);
         }

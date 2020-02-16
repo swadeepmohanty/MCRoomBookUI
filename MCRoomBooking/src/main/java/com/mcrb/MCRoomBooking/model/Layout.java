@@ -1,4 +1,4 @@
-package com.virtualpairprogrammers.roombooking.model;
+package com.mcrb.MCRoomBooking.model;
 
 public enum Layout {
     THEATER("Theater"),
