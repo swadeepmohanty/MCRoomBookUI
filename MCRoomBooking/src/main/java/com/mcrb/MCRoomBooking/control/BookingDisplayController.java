@@ -19,13 +19,6 @@ public class BookingDisplayController {
     @Autowired
     BookingRepository bookingRepository;
 
-    private ModelAndView showCalendar(Date date) {
-        Map<String,Object> model = new HashMap<>();
-        model.put("dateRequest", new DateRequestCommand(date));
-        model.put("bookings", bookingRepository.findAllByDate(date));
-        return new ModelAndView ("home", model);
-    }
-
     @RequestMapping("")
     public ModelAndView homePage() {
         Date date = new Date(new java.util.Date().getTime());
@@ -37,4 +30,10 @@ public class BookingDisplayController {
         return showCalendar(date);
     }
 
+    private ModelAndView showCalendar(Date date) {
+        Map<String,Object> model = new HashMap<>();
+        model.put("dateRequest", new DateRequestCommand(date));
+        model.put("bookings", bookingRepository.findAllByDate(date));
+        return new ModelAndView ("home", model);
+    }
 }

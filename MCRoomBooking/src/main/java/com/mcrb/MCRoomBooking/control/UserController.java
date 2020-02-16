@@ -44,7 +44,6 @@ public class UserController {
             return new ModelAndView("users/edit", "user", user);
         }
 
-        //TODO: THE PASSWORD SHOULD OF COURSE BE ENCODED BEFORE IT'S SAVED!
         userRepository.save(user);
         return "redirect:/users";
 

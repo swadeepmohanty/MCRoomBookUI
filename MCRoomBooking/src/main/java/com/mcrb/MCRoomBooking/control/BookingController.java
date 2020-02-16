@@ -7,6 +7,7 @@ import com.mcrb.MCRoomBooking.model.BookingCommand;
 
 import com.mcrb.MCRoomBooking.model.Layout;
 import com.mcrb.MCRoomBooking.model.entities.Booking;
+import com.mcrb.MCRoomBooking.util.BookingCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,15 +31,6 @@ public class BookingController {
     @Autowired
     UserRepository userRepository;
 
-    private Map<String,Object> getBookingFormModel(Booking booking) {
-        Map<String,Object> model = new HashMap<>();
-        model.put("booking",new BookingCommand(booking));
-        model.put("rooms", roomRepository.findAll());
-        model.put("layouts", Layout.values());
-        model.put("users", userRepository.findAll());
-        return model;
-    }
-
     @RequestMapping("/edit")
     public ModelAndView editBooking(@RequestParam Long id) {
         return new ModelAndView("bookings/edit", getBookingFormModel(bookingRepository.findById(id).get()));
@@ -51,6 +43,8 @@ public class BookingController {
 
     @PostMapping("/save")
     public String save(BookingCommand booking) {
+        boolean flag =BookingCheck.seatCapacityCheck(booking);
+        System.out.println(" Allowed " + flag);
         bookingRepository.save(booking.toBooking());
         return "redirect:/";
     }
@@ -59,5 +53,14 @@ public class BookingController {
     public String delete(@RequestParam Long id) {
         bookingRepository.deleteById(id);
         return "redirect:/";
+    }
+
+    private Map<String,Object> getBookingFormModel(Booking booking) {
+        Map<String,Object> model = new HashMap<>();
+        model.put("booking",new BookingCommand(booking));
+        model.put("rooms", roomRepository.findAll());
+        model.put("layouts", Layout.values());
+        model.put("users", userRepository.findAll());
+        return model;
     }
 }
