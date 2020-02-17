@@ -17,8 +17,10 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class RestBookingControllerTest {
@@ -66,6 +68,11 @@ public class RestBookingControllerTest {
 		Booking booking1 = restBookingsController.newBooking(booking);
 
 		//then
-		Assertions.assertThat(booking1.getTitle()).isEqualTo("Test Meeting");
+		//AssertJ
+		assertThat(booking1.getTitle()).isEqualTo("Test Meeting");
+
+		//Hamcrest matcher
+		assertThat(booking, is(booking1));
+
 	}
 }
