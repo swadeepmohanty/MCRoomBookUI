@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("/api/bookings")
 public class RestBookingsController {
 
+
 	@Autowired
 	BookingRepository bookingRepository;
 	
@@ -29,7 +30,8 @@ public class RestBookingsController {
 	
 	@GetMapping() 
 	public Booking getBooking(@RequestParam("id") Long id) {
-		return bookingRepository.findById(id).get();
+		Booking booking = bookingRepository.findById(id).get();
+		return booking;
 	}
 	
 	@PostMapping()
