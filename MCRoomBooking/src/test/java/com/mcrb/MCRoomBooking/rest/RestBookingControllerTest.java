@@ -7,10 +7,12 @@ import com.mcrb.MCRoomBooking.model.entities.LayoutCapacity;
 import com.mcrb.MCRoomBooking.model.entities.Room;
 import com.mcrb.MCRoomBooking.model.entities.User;
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Date;
@@ -30,6 +32,13 @@ public class RestBookingControllerTest {
 
 	@Mock
 	BookingRepository bookingRepository;
+
+	/*Passing this instance will make Mockito acknowledge the
+	 @InjectMocks and the @Mocks annotations and that they should be pushed together.*/
+	@Before
+	public void init() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	public void getAllBookings_whenDatePassed(){
