@@ -1,5 +1,6 @@
 package com.mcrb.MCRoomBooking.rest;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -8,7 +9,8 @@ import java.net.URLConnection;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class RestSmokeTest {
+
+public class RestRoomBookSmokeTest {
 
     @Test
     public void whenDeployed_TheWebsiteIsReachable() throws IOException {

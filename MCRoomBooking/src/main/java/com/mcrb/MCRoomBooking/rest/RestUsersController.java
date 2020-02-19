@@ -4,6 +4,7 @@ package com.mcrb.MCRoomBooking.rest;
 import com.mcrb.MCRoomBooking.data.UserRepository;
 import com.mcrb.MCRoomBooking.model.AngularUser;
 import com.mcrb.MCRoomBooking.model.entities.User;
+import com.mcrb.MCRoomBooking.util.AdminOprCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +17,12 @@ public class RestUsersController {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
+	private List<AngularUser> angularUsers;
 	@GetMapping()
 	public List<AngularUser> getAllUsers(){
-		return userRepository.findAll().parallelStream().map( user -> new AngularUser(user)).collect(Collectors.toList());
+		angularUsers = userRepository.findAll().parallelStream().map( user -> new AngularUser(user)).collect(Collectors.toList());
+		return angularUsers;
 	}
 	
 	@GetMapping("/{id}")
@@ -30,7 +33,6 @@ public class RestUsersController {
 	
 	@PutMapping()
 	public AngularUser updateUser(@RequestBody AngularUser updatedUser) throws InterruptedException {
-//		throw new RuntimeException("something went wrong");
 		User originalUser = userRepository.findById(updatedUser.getId()).get();
 		originalUser.setName(updatedUser.getName());
 		return new AngularUser(userRepository.save(originalUser));
@@ -43,7 +45,13 @@ public class RestUsersController {
 	
 	@DeleteMapping("/{id}")
 	public void deleteUser(@PathVariable("id") Long id) {
-		userRepository.deleteById(id);
+		boolean flag = AdminOprCheck.deletePossible(angularUsers);
+		if(flag){
+			userRepository.deleteById(id);
+		}
+		else {
+			throw new RuntimeException("Deletion not possible");
+		}
 	}
 	
 	@GetMapping("/resetPassword/{id}")

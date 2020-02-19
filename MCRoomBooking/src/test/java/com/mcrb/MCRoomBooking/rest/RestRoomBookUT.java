@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class RestBookingControllerTest {
+public class RestRoomBookUT {
 
 	@InjectMocks
 	RestBookingsController restBookingsController;
