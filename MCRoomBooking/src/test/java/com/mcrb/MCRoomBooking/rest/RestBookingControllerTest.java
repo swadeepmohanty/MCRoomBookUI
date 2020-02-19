@@ -33,13 +33,6 @@ public class RestBookingControllerTest {
 	@Mock
 	BookingRepository bookingRepository;
 
-	/*Passing this instance will make Mockito acknowledge the
-	 @InjectMocks and the @Mocks annotations and that they should be pushed together.*/
-	@Before
-	public void init() {
-		MockitoAnnotations.initMocks(this);
-	}
-
 	@Test
 	public void getAllBookings_whenDatePassed(){
 		//Given
